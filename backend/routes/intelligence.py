@@ -10,7 +10,6 @@ intelligence_bp = Blueprint(
 
 @intelligence_bp.route("/employee/<int:employee_id>", methods=["GET"])
 def get_employee_intelligence(employee_id):
-    # 1. Fetch raw logs from PostgreSQL using existing models
     attendance_records = Attendance.query.filter_by(
         employee_id=employee_id
     ).order_by(Attendance.date.asc()).all()
@@ -19,7 +18,6 @@ def get_employee_intelligence(employee_id):
         employee_id=employee_id
     ).order_by(LeaveRequest.start_date.asc()).all()
 
-    # 2. Format attendance records for the analyzer
     attendance_data = [
         {
             "employee_id": record.employee_id,
@@ -37,7 +35,6 @@ def get_employee_intelligence(employee_id):
         for record in attendance_records
     ]
 
-    # 3. Format leave records
     leave_data = [
         {
             "employee_id": record.employee_id,
@@ -50,7 +47,6 @@ def get_employee_intelligence(employee_id):
         for record in leave_records
     ]
 
-    # 4. Run the team's analytics engine
     result = analyze_employee(
         employee_id,
         attendance_data,
