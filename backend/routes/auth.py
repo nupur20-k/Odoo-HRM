@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from models import User
-
+import bcrypt
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
@@ -26,11 +26,14 @@ def login():
             "message": "Invalid email or password"
         }, 401
 
-    if user.password_hash != password:
+    if not bcrypt.checkpw(
+        password.encode("utf-8"),
+        user.password_hash.encode("utf-8")
+):
         return {
-            "status": "error",
-            "message": "Invalid email or password"
-        }, 401
+        "status": "error",
+        "message": "Invalid email or password"
+    }, 401
 
     return {
         "status": "success",
