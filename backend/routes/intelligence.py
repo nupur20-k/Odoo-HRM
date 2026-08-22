@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify
-from models import Attendance, LeaveRequest
+# If running from inside the backend/ folder:
+from models.attendance import Attendance
+from models.leave import LeaveRequest
 from intelligence.analyzer import analyze_employee
 
 intelligence_bp = Blueprint(
