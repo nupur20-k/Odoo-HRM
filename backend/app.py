@@ -13,6 +13,7 @@ from routes.attendance import attendance_bp
 from routes.leave import leave_bp
 from routes.hr import hr_bp
 from routes.payroll import payroll_bp
+from routes.intelligence import intelligence_bp
 
 from utils import token_required
 
@@ -41,6 +42,7 @@ def create_app():
     app.register_blueprint(leave_bp)
     app.register_blueprint(hr_bp)
     app.register_blueprint(payroll_bp)
+    app.register_blueprint(intelligence_bp)
 
     @app.route("/")
     def home():
