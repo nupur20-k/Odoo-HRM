@@ -1,6 +1,11 @@
-from flask import Blueprint, request
-from models import User
+import os
+from datetime import datetime, timedelta, timezone
+
 import bcrypt
+import jwt
+from flask import Blueprint, request
+
+from models import User
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
@@ -35,9 +40,21 @@ def login():
         "message": "Invalid email or password"
     }, 401
 
+    token = jwt.encode(
+        {
+            "user_id": user.id,
+            "employee_id": user.employee_id,
+            "role": user.role,
+            "exp": datetime.now(timezone.utc) + timedelta(hours=8)
+        },
+        os.getenv("JWT_SECRET_KEY"),
+        algorithm="HS256"
+    )
+
     return {
         "status": "success",
         "message": "Login successful",
+        "access_token": token,
         "user": {
             "id": user.id,
             "employee_id": user.employee_id,

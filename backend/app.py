@@ -1,13 +1,20 @@
 import os
 from urllib.parse import quote_plus
 
-from flask import Flask
+from flask import Flask, request
 from dotenv import load_dotenv
 
 from extensions import db
 from models import User
 
 from routes.auth import auth_bp
+from routes.employee import employee_bp
+from routes.attendance import attendance_bp
+from routes.leave import leave_bp
+from routes.hr import hr_bp
+from routes.payroll import payroll_bp
+
+from utils import token_required
 
 load_dotenv()
 
@@ -29,6 +36,11 @@ def create_app():
     db.init_app(app)
 
     app.register_blueprint(auth_bp)
+    app.register_blueprint(employee_bp)
+    app.register_blueprint(attendance_bp)    
+    app.register_blueprint(leave_bp)
+    app.register_blueprint(hr_bp)
+    app.register_blueprint(payroll_bp)
 
     @app.route("/")
     def home():
@@ -152,6 +164,15 @@ def create_app():
         return {
             "status": "success",
             "payroll": payroll_records
+        }
+
+    @app.route("/api/protected")
+    @token_required
+    def protected():
+        return {
+            "status": "success",
+            "message": "You have access to this protected endpoint",
+            "user": request.user
         }
     
     return app
