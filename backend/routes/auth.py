@@ -1,9 +1,9 @@
 import os
 from datetime import datetime, timedelta, timezone
 
-import bcrypt
 import jwt
 from flask import Blueprint, request
+from werkzeug.security import check_password_hash
 
 from models import User
 
@@ -31,14 +31,16 @@ def login():
             "message": "Invalid email or password"
         }, 401
 
-    if not bcrypt.checkpw(
-        password.encode("utf-8"),
-        user.password_hash.encode("utf-8")
-):
+    try:
+        password_valid = check_password_hash(user.password_hash, password)
+    except ValueError:
+        password_valid = False
+
+    if not password_valid:
         return {
-        "status": "error",
-        "message": "Invalid email or password"
-    }, 401
+            "status": "error",
+            "message": "Invalid email or password"
+        }, 401
 
     token = jwt.encode(
         {

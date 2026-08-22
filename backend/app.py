@@ -2,6 +2,7 @@ import os
 from urllib.parse import quote_plus
 
 from flask import Flask, request
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 from extensions import db
@@ -21,6 +22,18 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": [
+                "http://localhost:3000",
+                "http://127.0.0.1:3000"
+            ]
+        }
+    }
+)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = (
         f"postgresql+psycopg2://"
