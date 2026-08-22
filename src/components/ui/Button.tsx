@@ -16,7 +16,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variants = {
       primary: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md shadow-blue-500/20 active:scale-[0.98]",
       secondary: "bg-slate-800 hover:bg-slate-700 text-slate-100 shadow-sm border border-slate-700 active:scale-[0.98]",
-      outline: "border border-slate-700 hover:bg-slate-800/60 text-slate-200 active:scale-[0.98]",
+      outline: "border border-[#5B3778] text-[#5B3778] hover:bg-[#EFE6F5] active:scale-[0.98]",
       danger: "bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white shadow-md shadow-rose-500/20 active:scale-[0.98]",
       ghost: "hover:bg-slate-800/50 text-slate-300 hover:text-white",
       glass: "bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 active:scale-[0.98]",

@@ -2,12 +2,12 @@
 
 import React from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { AttendanceView } from "@/components/employee/AttendanceView";
+import { HRWorkOverviewView } from "@/components/worklog/HRWorkOverviewView";
 
-export default function EmployeeAttendancePage() {
+export default function AdminWorkOverviewPage() {
   return (
     <DashboardLayout>
-      <AttendanceView />
+      <HRWorkOverviewView />
     </DashboardLayout>
   );
 }

@@ -37,3 +37,36 @@ export function formatSecondsToHHMMSS(seconds: number): string {
     .toString()
     .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 }
+
+/**
+ * Generates an automated Employee Login ID following the system formula:
+ * [Company Initials + First two letters of First & Last Name + Year of Joining + Serial Number (4 digits)]
+ * Example: Odoo India + John Doe + 2022 + 1 -> OIJODO20220001
+ */
+export function generateEmployeeLoginId(
+  companyName: string = "Dayflow",
+  fullName: string = "Priya Shah",
+  joiningYear: number | string = 2023,
+  serialNumber: number = 1
+): string {
+  const compWords = companyName.trim().split(" ");
+  let compInitials = "";
+  if (compWords.length >= 2) {
+    compInitials = `${compWords[0][0]}${compWords[1][0]}`.toUpperCase();
+  } else {
+    compInitials = companyName.slice(0, 2).toUpperCase();
+  }
+
+  const nameWords = fullName.trim().split(" ");
+  let nameInitials = "";
+  if (nameWords.length >= 2) {
+    nameInitials = `${nameWords[0].slice(0, 2)}${nameWords[1].slice(0, 2)}`.toUpperCase();
+  } else {
+    nameInitials = fullName.slice(0, 4).toUpperCase();
+  }
+
+  const yearStr = `${joiningYear}`;
+  const serialStr = serialNumber.toString().padStart(4, "0");
+
+  return `${compInitials}${nameInitials}${yearStr}${serialStr}`;
+}

@@ -12,8 +12,30 @@ import { Edit3, User, Mail, Phone, Calendar, Building, MapPin, Shield } from "lu
 export default function EmployeeProfilePage() {
   const { user } = useAuth();
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [phone, setPhone] = useState("+91 98200 12345");
-  const [address, setAddress] = useState("742 Evergreen Terrace, Mumbai, India");
+  const [profile, setProfile] = useState({
+    name: user?.name || "Priya Shah",
+    email: user?.email || "priya.shah@dayflow.io",
+    phone: "+91 98765 43210",
+    designation: user?.designation || "Senior Product Designer",
+    department: user?.department || "Design Team",
+    employeeCode: "DF-2291",
+    joiningDate: "03 Feb 2023",
+    manager: "Rakesh Menon",
+    address: "402, Willow Residency, Pune",
+    employmentType: "Full-time • Permanent",
+  });
+  const [form, setForm] = useState(profile);
+
+  const handleOpenEdit = () => {
+    setForm(profile);
+    setIsEditOpen(true);
+  };
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    setProfile(form);
+    setIsEditOpen(false);
+  };
 
   const getUserInitials = (name?: string) => {
     if (!name) return "PS";
@@ -33,7 +55,7 @@ export default function EmployeeProfilePage() {
             </div>
             <h1 className="text-2xl font-bold text-[#241B35] font-sora mt-0.5">My Profile</h1>
           </div>
-          <Button variant="outline" leftIcon={<Edit3 className="w-4 h-4" />} onClick={() => setIsEditOpen(true)}>
+          <Button variant="outline" leftIcon={<Edit3 className="w-4 h-4" />} onClick={handleOpenEdit}>
             Edit Details
           </Button>
         </div>
@@ -43,12 +65,12 @@ export default function EmployeeProfilePage() {
           {/* Header Block */}
           <div className="flex items-center gap-5 pb-6 border-b border-[#E6E0F0]">
             <div className="w-16 h-16 rounded-2xl bg-[#EFE6F5] text-[#5B3778] flex items-center justify-center font-bold text-2xl font-sora shrink-0">
-              {getUserInitials(user?.name)}
+              {getUserInitials(profile.name)}
             </div>
             <div>
-              <h2 className="text-xl font-bold text-[#241B35] font-sora">{user?.name || "Priya Shah"}</h2>
+              <h2 className="text-xl font-bold text-[#241B35] font-sora">{profile.name}</h2>
               <p className="text-xs text-[#6E637F] mt-1 font-medium">
-                {user?.designation || "Senior Software Engineer"} &bull; {user?.department || "Engineering"} &bull; <span className="font-mono text-[#5B3778] font-bold">DF-2291</span>
+                {profile.designation} &bull; {profile.department} &bull; <span className="font-mono text-[#5B3778] font-bold">{profile.employeeCode}</span>
               </p>
             </div>
           </div>
@@ -57,32 +79,32 @@ export default function EmployeeProfilePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
             <div className="border-b border-[#E6E0F0] pb-3 space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-[#A79CBC] font-sora">Work Email</label>
-              <div className="text-sm font-medium text-[#241B35]">{user?.email || "priya.shah@dayflow.io"}</div>
+              <div className="text-sm font-medium text-[#241B35]">{profile.email}</div>
             </div>
 
             <div className="border-b border-[#E6E0F0] pb-3 space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-[#A79CBC] font-sora">Phone Number</label>
-              <div className="text-sm font-medium text-[#241B35]">{phone}</div>
+              <div className="text-sm font-medium text-[#241B35]">{profile.phone}</div>
             </div>
 
             <div className="border-b border-[#E6E0F0] pb-3 space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-[#A79CBC] font-sora">Date of Joining</label>
-              <div className="text-sm font-medium text-[#241B35]">15 Mar 2022</div>
+              <div className="text-sm font-medium text-[#241B35]">{profile.joiningDate}</div>
             </div>
 
             <div className="border-b border-[#E6E0F0] pb-3 space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-[#A79CBC] font-sora">Reporting Manager</label>
-              <div className="text-sm font-medium text-[#241B35]">Rakesh Menon</div>
+              <div className="text-sm font-medium text-[#241B35]">{profile.manager}</div>
             </div>
 
             <div className="border-b border-[#E6E0F0] pb-3 space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-[#A79CBC] font-sora">Residential Address</label>
-              <div className="text-sm font-medium text-[#241B35]">{address}</div>
+              <div className="text-sm font-medium text-[#241B35]">{profile.address}</div>
             </div>
 
             <div className="border-b border-[#E6E0F0] pb-3 space-y-1">
               <label className="text-[11px] font-bold uppercase tracking-wider text-[#A79CBC] font-sora">Employment Type</label>
-              <div className="text-sm font-medium text-[#241B35]">Full-time Permanent</div>
+              <div className="text-sm font-medium text-[#241B35]">{profile.employmentType}</div>
             </div>
           </div>
         </Card>
@@ -93,16 +115,27 @@ export default function EmployeeProfilePage() {
         isOpen={isEditOpen}
         onClose={() => setIsEditOpen(false)}
         title="Edit Profile Information"
-        description="Update your contact phone and residential address."
+        description="Update your personal details and employee record information."
       >
-        <div className="space-y-4">
-          <Input label="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} />
-          <Input label="Home Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-          <div className="flex justify-end gap-2 pt-2">
-            <Button variant="ghost" size="sm" onClick={() => setIsEditOpen(false)}>Cancel</Button>
-            <Button variant="primary" size="sm" onClick={() => setIsEditOpen(false)}>Save Changes</Button>
+        <form onSubmit={handleSave} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input label="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+            <Input label="Work Email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
           </div>
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input label="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            <Input label="Designation" value={form.designation} onChange={(e) => setForm({ ...form, designation: e.target.value })} />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input label="Department" value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} />
+            <Input label="Reporting Manager" value={form.manager} onChange={(e) => setForm({ ...form, manager: e.target.value })} />
+          </div>
+          <Input label="Residential Address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+          <div className="flex justify-end gap-2 pt-2">
+            <Button type="button" variant="ghost" size="sm" onClick={() => setIsEditOpen(false)}>Cancel</Button>
+            <Button type="submit" variant="primary" size="sm">Save Changes</Button>
+          </div>
+        </form>
       </Modal>
     </DashboardLayout>
   );

@@ -2,12 +2,12 @@
 
 import React from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { AttendanceView } from "@/components/employee/AttendanceView";
+import { WorkHistoryView } from "@/components/worklog/WorkHistoryView";
 
-export default function EmployeeAttendancePage() {
+export default function EmployeeWorkHistoryPage() {
   return (
     <DashboardLayout>
-      <AttendanceView />
+      <WorkHistoryView />
     </DashboardLayout>
   );
 }

@@ -40,7 +40,7 @@ export function ProfileCard({ employee, onEdit }: ProfileCardProps) {
         {onEdit && (
           <button
             onClick={onEdit}
-            className="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3.5 py-2 rounded-xl transition-colors font-medium self-end"
+            className="text-xs bg-white text-[#5B3778] border border-[#5B3778] hover:bg-[#EFE6F5] px-3.5 py-2 rounded-xl transition-colors font-medium self-end"
           >
             Edit Profile
           </button>

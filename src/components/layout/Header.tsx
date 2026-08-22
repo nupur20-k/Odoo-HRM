@@ -40,25 +40,7 @@ export function Header() {
 
       {/* Right Action Controls */}
       <div className="flex items-center gap-4">
-        {/* Role Switcher Pill Toggle */}
-        <div className="flex bg-[#F5F3FA] rounded-full p-1 border border-[#E6E0F0]">
-          <button
-            onClick={() => handleRoleToggle("employee")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              role === "employee" ? "bg-[#5B3778] text-white shadow-sm" : "text-[#6E637F] hover:text-[#241B35]"
-            }`}
-          >
-            Employee
-          </button>
-          <button
-            onClick={() => handleRoleToggle("admin")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              role === "admin" ? "bg-[#5B3778] text-white shadow-sm" : "text-[#6E637F] hover:text-[#241B35]"
-            }`}
-          >
-            Admin
-          </button>
-        </div>
+
 
         {/* Notifications Icon Button */}
         <div className="relative">

@@ -26,6 +26,6 @@
   </g>
 
   <!-- wordmark -->
-  <text x="92" y="52" class="word" font-size="44" fill="#241B35">Dayflow</text>
-  <text x="93" y="73" class="tag" font-size="12" letter-spacing="1.8" fill="#5B3778">EVERY WORKDAY, ALIGNED</text>
+  <text x="92" y="52" class="word" font-size="44" fill="#FFFFFF">Dayflow</text>
+  <text x="93" y="73" class="tag" font-size="12" letter-spacing="1.8" fill="#E4D5F0">EVERY WORKDAY, ALIGNED</text>
 </svg>

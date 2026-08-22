@@ -16,6 +16,8 @@ import {
   LogOut,
   ChevronRight,
   Bot,
+  FileText,
+  Briefcase,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +37,8 @@ export function Sidebar() {
   const workspaceNav: NavItem[] = [
     { name: "Dashboard", href: "/employee", icon: LayoutDashboard },
     { name: "AI Leave Assistant", href: "/employee/ai-assistant", icon: Sparkles, highlight: true },
+    { name: "My Work Log", href: "/employee/work-log", icon: FileText },
+    { name: "Work History", href: "/employee/work-history", icon: Clock },
     { name: "My Profile", href: "/employee/profile", icon: UserCheck },
     { name: "My Attendance", href: "/employee/attendance", icon: Clock },
     { name: "My Leave", href: "/employee/leave", icon: Calendar },
@@ -43,6 +47,7 @@ export function Sidebar() {
 
   const adminNav: NavItem[] = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
+    { name: "Work Overview", href: "/admin/work-overview", icon: Briefcase },
     { name: "Employees", href: "/admin/employees", icon: Users },
     { name: "Attendance", href: "/admin/attendance", icon: Clock },
     { name: "Leave Approvals", href: "/admin/leave", icon: Calendar, badge: "3" },
@@ -52,9 +57,8 @@ export function Sidebar() {
   return (
     <aside className="w-[236px] bg-gradient-to-b from-[#452A5D] to-[#3A2350] text-[#EFE3F7] p-5 flex flex-col h-screen sticky top-0 z-40 select-none font-sans">
       {/* Sidebar Brand Header */}
-      <div className="flex items-center gap-2.5 pb-6 text-white font-bold text-lg tracking-tight font-sora">
-        <span className="w-2.5 h-2.5 rounded-sm bg-[#F0B84E]" />
-        Dayflow
+      <div className="flex items-center gap-2.5 pb-6">
+        <img src="/logo/dayflow-logo-dark-bg.svg" alt="Dayflow Logo" className="h-10" />
       </div>
 
       {/* Nav Group: Workspace */}
